@@ -89,7 +89,7 @@ BOT_TOKEN=123456789:AA...
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-Copy-Item .env.example .env
+New-Item .env
 notepad .env
 python -m app
 ```
@@ -190,7 +190,6 @@ dyplomcheck/
 │     ├─ profile.py        требования ГОСТ / вуза
 │     ├─ report.py         краткий и полный отчёт
 │     └─ units.py          переводы мм/см/пт
-├─ tests/                  тесты на генерируемых .docx
 ├─ .env                    токен (не коммитится)
 ├─ requirements.txt
 ├─ setup.ps1
@@ -209,18 +208,6 @@ dyplomcheck/
 
 Команда печатает полный отчёт и, если указан `-o`, сохраняет его в файл.
 Код возврата `0` — ошибок нет, `1` — есть ошибки или файл не разобрался.
-
----
-
-## Тесты
-
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python.exe -m pytest -q
-```
-
-Тесты собирают корректный и «сломанный» `.docx` и проверяют, что бот находит
-поля, шрифт, интервалы, подписи, нумерацию и ссылки.
 
 ---
 

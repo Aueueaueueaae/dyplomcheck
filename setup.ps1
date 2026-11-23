@@ -19,7 +19,20 @@ Write-Host "Устанавливаю зависимости ..."
 & $python -m pip install -r requirements.txt
 
 if (-not (Test-Path ".env")) {
-    Copy-Item ".env.example" ".env"
+    $envContent = @"
+BOT_TOKEN=
+BOT_PROXY=
+MAX_FILE_MB=20
+RATE_LIMIT_CHECKS=8
+RATE_LIMIT_WINDOW_SEC=600
+MAX_REPORT_ISSUES=1000
+LOG_LEVEL=INFO
+"@
+    [System.IO.File]::WriteAllText(
+        (Join-Path $PSScriptRoot ".env"),
+        $envContent + [Environment]::NewLine,
+        (New-Object System.Text.UTF8Encoding($false))
+    )
     Write-Host "Создан .env. Вставьте в него BOT_TOKEN от @BotFather." -ForegroundColor Yellow
 }
 
